@@ -61,6 +61,8 @@ RUN true \
 
 ENV PATH="/root/homebrew/bin:/root/homebrew/sbin:${PATH}"
 
+WORKDIR /root
+
 RUN true \
   && mkdir -p homebrew \
   && ln -s ../Homebrew/bin/brew homebrew/bin/brew \
