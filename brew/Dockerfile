@@ -96,7 +96,7 @@ ENV PATH="/home/linuxbrew/Perl/bin:${PATH}"
 RUN true \
     && mkdir -p /home/linuxbrew/Perl \
     && curl -L https://www.cpan.org/src/5.0/perl-5.34.3.tar.gz | tar xvz \
-    && pushd perl-5.34.3 \
+    && cd perl-5.34.3 \
     && ./Configure \
         -des \
         -Dprefix=/home/linuxbrew/Perl \
@@ -106,6 +106,6 @@ RUN true \
         -Dusethreads \
     && make -j 2 \
     && make install \
-    && popd \
+    && cd .. \
     && rm -fr perl-5.34.3 \
     && perl -v
