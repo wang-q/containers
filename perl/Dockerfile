@@ -1,4 +1,4 @@
-FROM wangq/brew
+FROM wangq/brew:master
 LABEL maintainer="Qiang Wang <wang-q@outlook.com>"
 
 # Perl
