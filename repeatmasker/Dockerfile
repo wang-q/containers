@@ -13,7 +13,7 @@ RUN true \
   && brew install wang-q/tap/trf@4 \
   && brew install wang-q/tap/repeatmasker@4.1.1 \
   && cd $(brew --prefix)/Cellar/repeatmasker@4.1.1/4.1.1/libexec \
-  && brewpp configure \
+  && perl configure \
         -hmmer_dir=$(brew --prefix)/bin \
         -rmblast_dir=$(brew --prefix)/bin \
         -libdir=$(brew --prefix)/Cellar/repeatmasker@4.1.1/4.1.1/libexec/Libraries \
