@@ -35,7 +35,7 @@ RUN true \
         -default_search_engine=rmblast \
  && rm -fr $(brew --cache)/*
 
-# untap
+# brew untap
 RUN true \
  && export HOMEBREW_NO_ANALYTICS=1 \
  && export HOMEBREW_NO_AUTO_UPDATE=1 \
