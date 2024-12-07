@@ -7,9 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Delete the default ubuntu user & group UID=1000 GID=1000 in Ubuntu 23.04+
 RUN touch /var/mail/ubuntu && chown ubuntu /var/mail/ubuntu && userdel -r ubuntu; true
 
-# We don't want to manually pin versions, happy to use whatever
-# Ubuntu thinks is best.
-# hadolint ignore=DL3008
+#https://docs.sylabs.io/guides/3.2/user-guide/definition_files.html?highlight=best%20practice#best-practices-for-build-recipes \
 
 # We need `[` instead of `[[` because the shell is `/bin/sh`.
 # shellcheck disable=SC1091,SC2154,SC2292
@@ -57,15 +55,19 @@ RUN true \
     libffi-dev \
   && apt-get autoremove --purge -y \
   && rm -rf /var/lib/apt/lists/* \
-  && localedef -i en_US -f UTF-8 en_US.UTF-8
+  && localedef -i en_US -f UTF-8 en_US.UTF-8 \
+  && mkdir -p app
 
-ENV PATH="/root/homebrew/bin:/root/homebrew/sbin:${PATH}"
+WORKDIR /app
 
-WORKDIR /root
+#RUN true \
+#  && mkdir -p homebrew \
+#  && curl -L https://github.com/Homebrew/brew/archive/refs/tags/4.4.10.tar.gz | tar xz --strip 1 -C homebrew \
+#  && brew install-bundler-gems --groups=all \
+#  && brew cleanup \
+#  && rm -rf $(brew --cache)
 
 RUN true \
-  && mkdir -p homebrew \
-  && curl -L https://github.com/Homebrew/brew/archive/refs/tags/4.4.10.tar.gz | tar xz --strip 1 -C homebrew \
-  && brew install-bundler-gems --groups=all \
-  && brew cleanup \
-  && rm -rf $(brew --cache) \
+    && curl -L https://cpanmin.us | perl - App::cpanminus \
+    && cpanm -nq Text::Soundex \
+    && which cpanm
