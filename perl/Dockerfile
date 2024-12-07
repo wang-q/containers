@@ -1,0 +1,26 @@
+FROM homebrew/brew
+LABEL maintainer="Qiang Wang <wang-q@outlook.com>"
+
+# Perl
+RUN true \
+ && export HOMEBREW_NO_ANALYTICS=1 \
+ && export HOMEBREW_NO_AUTO_UPDATE=1 \
+ && brew install perl \
+ && curl -L https://cpanmin.us | perl - App::cpanminus \
+ && rm -fr $(brew --cache)/* \
+ && rm -fr $HOME/.cpan \
+ && rm -fr $HOME/.gem \
+ && rm -fr $HOME/.cpanm
+
+# Change this when Perl updated
+ENV PATH=/home/linuxbrew/bin:/home/linuxbrew/.linuxbrew/Cellar/perl/5.40.0/bin:$PATH
+
+# brew untap
+RUN true \
+ && export HOMEBREW_NO_ANALYTICS=1 \
+ && export HOMEBREW_NO_AUTO_UPDATE=1 \
+ && brew untap --force homebrew/homebrew-core \
+ && brew untap --force wang-q/tap
+
+WORKDIR /home/linuxbrew
+ADD . .
