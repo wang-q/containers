@@ -23,7 +23,7 @@ RUN true \
   && export HOMEBREW_NO_ANALYTICS=1 \
   && export HOMEBREW_NO_AUTO_UPDATE=1 \
   && cpanm -nq Text::Soundex \
-  && pip3 install h5py \
+  && pip3 install h5py --break-system-packages \
   && rm -fr $HOME/.cpan \
   && rm -fr $HOME/.cpanm \
   && rm -fr $HOME/.gem
