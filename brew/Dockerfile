@@ -5,7 +5,6 @@ FROM ubuntu:"${version}"
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Delete the default ubuntu user & group UID=1000 GID=1000 in Ubuntu 23.04+
-# that conflicts with the linuxbrew user
 RUN touch /var/mail/ubuntu && chown ubuntu /var/mail/ubuntu && userdel -r ubuntu; true
 
 # We don't want to manually pin versions, happy to use whatever
@@ -60,7 +59,7 @@ RUN true \
   && rm -rf /var/lib/apt/lists/* \
   && localedef -i en_US -f UTF-8 en_US.UTF-8
 
-ENV PATH="${HOME}/homebrew/bin:${HOME}/homebrew/sbin:${PATH}"
+ENV PATH="/root/homebrew/bin:/root/homebrew/sbin:${PATH}"
 
 RUN true \
   && mkdir -p homebrew \
