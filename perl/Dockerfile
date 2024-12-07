@@ -19,8 +19,7 @@ ENV PATH=/home/linuxbrew/bin:/home/linuxbrew/.linuxbrew/Cellar/perl/5.40.0/bin:$
 RUN true \
  && export HOMEBREW_NO_ANALYTICS=1 \
  && export HOMEBREW_NO_AUTO_UPDATE=1 \
- && brew untap --force homebrew/homebrew-core \
- && brew untap --force wang-q/tap
+ && rm -fr $(brew --prefix)/Library/Taps/homebrew/
 
 WORKDIR /home/linuxbrew
 ADD . .
