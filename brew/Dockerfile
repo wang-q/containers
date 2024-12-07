@@ -65,7 +65,7 @@ RUN true \
   && rm -rf /var/lib/apt/lists/* \
   && sed -i -E 's/^(USERGROUPS_ENAB\s+)yes$/\1no/' /etc/login.defs \
   && localedef -i en_US -f UTF-8 en_US.UTF-8 \
-  && useradd --uid "${USER_ID}" --gid "${USER_ID}" --create-home --shell /bin/bash --user-group linuxbrew \
+  && useradd --uid "${USER_ID}" --create-home --shell /bin/bash --user-group linuxbrew \
   && echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers \
   && su - linuxbrew -c 'mkdir ~/.linuxbrew'
 
@@ -91,6 +91,6 @@ RUN --mount=type=cache,target=/home/linuxbrew/.cache,uid="${USER_ID}" \
   && curl -L https://github.com/Homebrew/brew/archive/refs/tags/4.4.10.tar.gz | tar xz --strip 1 -C .linuxbrew \
   && brew install-bundler-gems --groups=all \
   && brew cleanup \
-  && { git -C .linuxbrew/Homebrew config --unset gc.auto; true; } \
-  && { git -C .linuxbrew/Homebrew config --unset homebrew.devcmdrun; true; } \
-  && touch .linuxbrew/.homebrewdocker
+  && rm -rf ~/.cache \
+  && chown -R linuxbrew: /home/linuxbrew/.linuxbrew \
+  && chmod -R g+w,o-w /home/linuxbrew/.linuxbrew
