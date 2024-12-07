@@ -21,6 +21,3 @@ RUN true \
         -default_search_engine=rmblast \
   && rm -fr $(brew --cache)/* \
   && rm -fr $(brew --prefix)/Homebrew/Library/Taps/*
-
-WORKDIR /home/linuxbrew
-ADD . .
