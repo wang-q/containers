@@ -19,28 +19,28 @@ RUN touch /var/mail/ubuntu && chown ubuntu /var/mail/ubuntu && userdel -r ubuntu
 RUN true \
   && apt-get update \
   && apt-get install -y --no-install-recommends `# brew` \
-  acl \
-  bzip2 \
-  ca-certificates \
-  curl \
-  file \
-  fonts-dejavu-core \
-  gcc \
-  g++ \
-  gawk \
-  git \
-  gpg \
-  less \
-  locales \
-  make \
-  netbase \
-  openssh-client \
-  patch \
-  sudo \
-  unzip \
-  uuid-runtime \
-  tzdata \
-  jq \
+    acl \
+    bzip2 \
+    ca-certificates \
+    curl \
+    file \
+    fonts-dejavu-core \
+    gcc \
+    g++ \
+    gawk \
+    git \
+    gpg \
+    less \
+    locales \
+    make \
+    netbase \
+    openssh-client \
+    patch \
+    sudo \
+    unzip \
+    uuid-runtime \
+    tzdata \
+    jq \
   && apt-get install -y --no-install-recommends `# perl` \
     procps \
     cpio \
@@ -51,6 +51,12 @@ RUN true \
     libgdbm-dev \
     libssl-dev \
     libexpat1 \
+  && apt-get install -y --no-install-recommends `# python` \
+    sqlite3 \
+    libsqlite3-dev \
+    libbz2-dev \
+    libssl-dev \
+    libffi-dev \
   && apt-get autoremove --purge -y \
   && rm -rf /var/lib/apt/lists/* \
   && sed -i -E 's/^(USERGROUPS_ENAB\s+)yes$/\1no/' /etc/login.defs \
