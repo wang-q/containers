@@ -69,9 +69,7 @@ WORKDIR /app
 #  && rm -rf $(brew --cache)
 
 RUN true \
-    && cpanm -nq Text::Soundex \
-    && which cpanm
+    && cpanm -nq Text::Soundex
 
 RUN true \
-    && python3 -V \
-    && which pip3
+    && pip3 install h5py
