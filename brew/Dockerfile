@@ -7,6 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Deterministic UID (first user). Helps with docker build cache
 # https://docs.sylabs.io/guides/3.2/user-guide/definition_files.html?highlight=best%20practice#best-practices-for-build-recipes
 # Files should always be owned by a system account (UID less than 500)
+#ENV USER_ID=1000
 ENV USER_ID=201
 # Delete the default ubuntu user & group UID=1000 GID=1000 in Ubuntu 23.04+
 # that conflicts with the linuxbrew user
@@ -64,7 +65,7 @@ RUN true \
   && rm -rf /var/lib/apt/lists/* \
   && sed -i -E 's/^(USERGROUPS_ENAB\s+)yes$/\1no/' /etc/login.defs \
   && localedef -i en_US -f UTF-8 en_US.UTF-8 \
-  && useradd -u "${USER_ID}" --create-home --shell /bin/bash --user-group linuxbrew \
+  && useradd --uid "${USER_ID}" --gid "${USER_ID}" --create-home --shell /bin/bash --user-group linuxbrew \
   && echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers \
   && su - linuxbrew -c 'mkdir ~/.linuxbrew'
 
