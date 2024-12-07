@@ -5,7 +5,9 @@ FROM ubuntu:"${version}"
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Deterministic UID (first user). Helps with docker build cache
-ENV USER_ID=1000
+# https://docs.sylabs.io/guides/3.2/user-guide/definition_files.html?highlight=best%20practice#best-practices-for-build-recipes
+# Files should always be owned by a system account (UID less than 500)
+ENV USER_ID=201
 # Delete the default ubuntu user & group UID=1000 GID=1000 in Ubuntu 23.04+
 # that conflicts with the linuxbrew user
 RUN touch /var/mail/ubuntu && chown ubuntu /var/mail/ubuntu && userdel -r ubuntu; true
