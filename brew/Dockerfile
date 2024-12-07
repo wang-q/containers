@@ -41,6 +41,7 @@ RUN true \
     uuid-runtime \
     tzdata \
     jq \
+    xz-utils \
   && apt-get install -y --no-install-recommends `# perl` \
     procps \
     cpio \
