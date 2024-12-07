@@ -18,7 +18,6 @@ ENV PATH=/home/linuxbrew/bin:/home/linuxbrew/.linuxbrew/Cellar/perl/5.40.0/bin:$
 
 # brew untap
 RUN true \
-  && 1 \
   && export HOMEBREW_NO_ANALYTICS=1 \
   && export HOMEBREW_NO_AUTO_UPDATE=1 \
   && rm -fr $(brew --prefix)/Homebrew/Library/Taps/homebrew/
