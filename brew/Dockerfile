@@ -65,7 +65,6 @@ WORKDIR /root
 
 RUN true \
   && mkdir -p homebrew \
-  && ln -s ../Homebrew/bin/brew homebrew/bin/brew \
   && curl -L https://github.com/Homebrew/brew/archive/refs/tags/4.4.10.tar.gz | tar xz --strip 1 -C homebrew \
   && brew install-bundler-gems --groups=all \
   && brew cleanup \
