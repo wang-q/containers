@@ -111,3 +111,23 @@ RUN true \
     && perl -v \
     && curl -L https://cpanmin.us | perl - App::cpanminus \
     && cpanm -nq Text::Soundex
+
+ENV PATH="/home/linuxbrew/Python/bin:${PATH}"
+
+RUN true \
+    && mkdir -p /home/linuxbrew/Python \
+    && curl -L https://www.python.org/ftp/python/3.10.16/Python-3.10.16.tar.xz | tar xz \
+    && cd Python-3.10.16 \
+    && CC=gcc ./configure \
+        --prefix=/home/linuxbrew/Python \
+        --enable-optimizations \
+        --enable-ipv6 \
+        --enable-loadable-sqlite-extensions \
+        --with-lto \
+    && make -j 2 \
+    && make install \
+    && cd .. \
+    && rm -fr Python-3.10.16 \
+    && python3 -V \
+    && pip3 install h5py
+
