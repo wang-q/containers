@@ -75,9 +75,8 @@ ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}
   XDG_CACHE_HOME=/home/linuxbrew/.cache
 WORKDIR /home/linuxbrew
 
-RUN --mount=type=cache,target=/home/linuxbrew/.cache,uid="${USER_ID}" \
-   --mount=type=cache,target=/home/linuxbrew/.bundle,uid="${USER_ID}" \
-   mkdir -p \
+RUN true \
+  && mkdir -p \
   .linuxbrew/bin \
   .linuxbrew/etc \
   .linuxbrew/include \
