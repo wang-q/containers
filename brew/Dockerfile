@@ -80,8 +80,7 @@ RUN --mount=type=cache,target=/home/linuxbrew/.cache,uid="${USER_ID}" \
   .linuxbrew/var/homebrew/linked \
   .linuxbrew/Cellar \
   && ln -s ../Homebrew/bin/brew .linuxbrew/bin/brew \
-  && git -C .linuxbrew/Homebrew remote set-url origin https://github.com/Homebrew/brew \
-  && git -C .linuxbrew/Homebrew fetch origin \
+  && curl -L https://github.com/Homebrew/brew/archive/refs/tags/4.4.10.tar.gz | tar xz --strip 1 -C .linuxbrew \
   && brew install-bundler-gems --groups=all \
   && brew cleanup \
   && { git -C .linuxbrew/Homebrew config --unset gc.auto; true; } \
