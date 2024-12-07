@@ -1,4 +1,4 @@
-FROM homebrew/brew
+FROM wangq/brew
 LABEL maintainer="Qiang Wang <wang-q@outlook.com>"
 
 # Perl
@@ -15,12 +15,6 @@ RUN true \
 
 # Change this when Perl updated
 ENV PATH=/home/linuxbrew/bin:/home/linuxbrew/.linuxbrew/Cellar/perl/5.40.0/bin:$PATH
-
-# brew untap
-RUN true \
-  && export HOMEBREW_NO_ANALYTICS=1 \
-  && export HOMEBREW_NO_AUTO_UPDATE=1 \
-  && rm -fr $(brew --prefix)/Homebrew/Library/Taps/homebrew/
 
 WORKDIR /home/linuxbrew
 ADD . .
