@@ -18,7 +18,7 @@ RUN touch /var/mail/ubuntu && chown ubuntu /var/mail/ubuntu && userdel -r ubuntu
 # shellcheck disable=SC1091,SC2154,SC2292
 RUN true \
   && apt-get update \
-  && apt-get install -y --no-install-recommends \
+  && apt-get install -y --no-install-recommends `# brew` \
   acl \
   bzip2 \
   ca-certificates \
@@ -41,6 +41,16 @@ RUN true \
   uuid-runtime \
   tzdata \
   jq \
+  && apt-get install -y --no-install-recommends `# perl` \
+    procps \
+    cpio \
+    libbz2-dev \
+    libz-dev \
+    zlib1g-dev \
+    libdb-dev \
+    libgdbm-dev \
+    libssl-dev \
+    libexpat1 \
   && apt-get autoremove --purge -y \
   && rm -rf /var/lib/apt/lists/* \
   && sed -i -E 's/^(USERGROUPS_ENAB\s+)yes$/\1no/' /etc/login.defs \
