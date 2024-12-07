@@ -1,15 +1,28 @@
 # Several docker containers
 
-## perl
+## brew
 
 ```powershell
 # Build
-docker build -t wangq/perl perl/.
+docker build -t wangq/brew brew/.
 
 # Run
-docker run --rm wangq/perl:latest perl -V
+docker run --rm wangq/brew:latest brew help
 
-docker run --rm -it wangq/perl
+docker run --rm -it wangq/brew
+
+```
+
+## perl and python
+
+```powershell
+# Build
+docker build -t wangq/brewpp brewpp/.
+
+# Run
+docker run --rm wangq/brewpp:latest perl -V
+
+docker run --rm -it wangq/brewpp:master
 
 ```
 
