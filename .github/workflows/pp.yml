@@ -3,8 +3,8 @@ name: Docker
 on:
   push:
     paths:
-      - .github/workflows/perl.yml
-      - perl/Dockerfile
+      - .github/workflows/pp.yml
+      - pp/Dockerfile
   release:
     types:
       - created
@@ -21,7 +21,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: wangq/perl
+          images: wangq/pp
 
       - name: Set up Docker Buildx
         id: buildx
@@ -37,8 +37,8 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v6
         with:
-          context: perl/.
-          file: perl/Dockerfile
+          context: pp/.
+          file: pp/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
