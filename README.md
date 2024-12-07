@@ -1,6 +1,19 @@
 # Several docker containers
 
-## RepeatMasker
+## perl
+
+```powershell
+# Build
+docker build -t wangq/perl perl/.
+
+# Run
+docker run --rm wangq/perl:latest perl -V
+
+docker run --rm -it wangq/perl
+
+```
+
+## repeatmasker
 
 ```powershell
 # Build
