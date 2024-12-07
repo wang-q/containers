@@ -116,7 +116,7 @@ ENV PATH="/home/linuxbrew/Python/bin:${PATH}"
 
 RUN true \
     && mkdir -p /home/linuxbrew/Python \
-    && curl -L https://www.python.org/ftp/python/3.10.16/Python-3.10.16.tar.xz | tar xz \
+    && curl -L https://www.python.org/ftp/python/3.10.16/Python-3.10.16.tar.gz | tar xz \
     && cd Python-3.10.16 \
     && CC=gcc ./configure \
         --prefix=/home/linuxbrew/Python \
