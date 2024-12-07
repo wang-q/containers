@@ -90,3 +90,22 @@ RUN --mount=type=cache,target=/home/linuxbrew/.cache,uid="${USER_ID}" \
   && { git -C .linuxbrew/Homebrew config --unset gc.auto; true; } \
   && { git -C .linuxbrew/Homebrew config --unset homebrew.devcmdrun; true; } \
   && touch .linuxbrew/.homebrewdocker
+
+ENV PATH="/home/linuxbrew/Perl/bin:${PATH}"
+
+RUN true \
+    && mkdir -p /home/linuxbrew/Perl \
+    && curl -L https://www.cpan.org/src/5.0/perl-5.34.3.tar.gz | tar xvz \
+    && pushd perl-5.34.3 \
+    && ./Configure \
+        -des \
+        -Dprefix=/home/linuxbrew/Perl \
+        -Dcc=gcc \
+        -Duseshrplib \
+        -Duselargefiles \
+        -Dusethreads \
+    && make -j 2 \
+    && make install \
+    && popd \
+    && rm -fr perl-5.34.3 \
+    && perl -v
