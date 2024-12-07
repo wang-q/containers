@@ -14,13 +14,9 @@ RUN touch /var/mail/ubuntu && chown ubuntu /var/mail/ubuntu && userdel -r ubuntu
 # Ubuntu thinks is best.
 # hadolint ignore=DL3008
 
-# `gh` installation taken from https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian-ubuntu-linux-raspberry-pi-os-apt
-# /etc/lsb-release is checked inside the container and sets DISTRIB_RELEASE.
 # We need `[` instead of `[[` because the shell is `/bin/sh`.
 # shellcheck disable=SC1091,SC2154,SC2292
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends software-properties-common gnupg-agent \
-  && add-apt-repository -y ppa:git-core/ppa \
+RUN true \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
   acl \
@@ -29,6 +25,7 @@ RUN apt-get update \
   curl \
   file \
   fonts-dejavu-core \
+  gcc \
   g++ \
   gawk \
   git \
@@ -44,15 +41,6 @@ RUN apt-get update \
   uuid-runtime \
   tzdata \
   jq \
-  && if [ "$(. /etc/lsb-release; echo "${DISTRIB_RELEASE}" | cut -d. -f1)" -ge 22 ]; then apt-get install -y --no-install-recommends skopeo; fi \
-  && mkdir -p /etc/apt/keyrings \
-  && chmod 0755 /etc /etc/apt /etc/apt/keyrings \
-  && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | tee /etc/apt/keyrings/githubcli-archive-keyring.gpg >/dev/null \
-  && chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
-  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list >/dev/null \
-  && apt-get update \
-  && apt-get install -y --no-install-recommends gh \
-  && apt-get remove --purge -y software-properties-common \
   && apt-get autoremove --purge -y \
   && rm -rf /var/lib/apt/lists/* \
   && sed -i -E 's/^(USERGROUPS_ENAB\s+)yes$/\1no/' /etc/login.defs \
