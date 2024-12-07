@@ -53,6 +53,7 @@ RUN true \
     libbz2-dev \
     libssl-dev \
     libffi-dev \
+  && apt-get install -y --no-install-recommends perl python3 \
   && apt-get autoremove --purge -y \
   && rm -rf /var/lib/apt/lists/* \
   && localedef -i en_US -f UTF-8 en_US.UTF-8 \
@@ -71,3 +72,6 @@ RUN true \
     && curl -L https://cpanmin.us | perl - App::cpanminus \
     && cpanm -nq Text::Soundex \
     && which cpanm
+
+RUN true \
+    && python3 -V
