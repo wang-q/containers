@@ -4,9 +4,9 @@ LABEL maintainer="Qiang Wang <wang-q@outlook.com>"
 # RepeatMasker
 RUN true \
     && apt-get update \
-    && apt-get install -y --no-install-recommends `# brew` \
-    && hmmer \
-    && trf
+    && apt-get install -y --no-install-recommends \
+        hmmer \
+        trf
 
 # rmblast
 RUN true \
