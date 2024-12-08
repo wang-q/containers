@@ -1,40 +1,38 @@
 # Several docker containers
 
-## brew
+## base: perl and python
 
-```powershell
+```shell
 # Build
-docker build -t wangq/brew brew/.
+docker build -t wangq/base base/.
 
 # Run
-docker run --rm wangq/brew:latest brew help
+docker run --rm wangq/base:latest base help
 
-docker run --rm -it wangq/brew
-
-```
-
-## perl and python
-
-```powershell
-# Build
-docker build -t wangq/brewpp brewpp/.
-
-# Run
-docker run --rm wangq/brewpp:latest perl -V
-
-docker run --rm -it wangq/brewpp:master
+docker run --rm -it wangq/base:master
 
 ```
 
 ## repeatmasker
 
-```powershell
+```shell
 # Build
 docker build -t wangq/repeatmasker repeatmasker/.
 
 # Run
 docker run --rm wangq/repeatmasker:latest RepeatMasker
 
-docker run --rm -it wangq/repeatmasker:latest
+docker run --rm -it wangq/repeatmasker:master
+
+```
+
+## singularity
+
+```shell
+singularity pull docker://wangq/repeatmasker:master
+
+singularity run repeatmasker_master.sif /app/RepeatMasker/RepeatMasker
+
+singularity run repeatmasker_master.sif /app/RepeatMasker/util/rmOutToGFF3.pl
 
 ```
