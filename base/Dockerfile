@@ -1,7 +1,4 @@
-ARG version=22.04
-# version is passed through by Docker.
-# shellcheck disable=SC2154
-FROM ubuntu:"${version}"
+FROM ubuntu:22.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Delete the default ubuntu user & group UID=1000 GID=1000 in Ubuntu 23.04+
@@ -60,13 +57,6 @@ RUN true \
   && mkdir -p app
 
 WORKDIR /app
-
-#RUN true \
-#  && mkdir -p homebrew \
-#  && curl -L https://github.com/Homebrew/brew/archive/refs/tags/4.4.10.tar.gz | tar xz --strip 1 -C homebrew \
-#  && brew install-bundler-gems --groups=all \
-#  && brew cleanup \
-#  && rm -rf $(brew --cache)
 
 RUN true \
     && cpanm -nq Text::Soundex
