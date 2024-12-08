@@ -1,9 +1,9 @@
-name: Docker brew
+name: Docker base
 
 on:
   push:
     paths:
-      - .github/workflows/brew.yml
+      - .github/workflows/base.yml
       - brew/Dockerfile
   release:
     types:
@@ -21,7 +21,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: wangq/brew
+          images: wangq/base
 
       - name: Set up Docker Buildx
         id: buildx
@@ -37,8 +37,8 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v6
         with:
-          context: brew/.
-          file: brew/Dockerfile
+          context: base/.
+          file: base/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
