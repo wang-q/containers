@@ -14,9 +14,11 @@ RUN true \
     && tree /app
 
 # /app/RepeatMasker/RepeatMasker
+# The RepeatMasker configure script must be run from inside the RepeatMasker installation directory
 RUN true \
     && curl -L https://repeatmasker.org/RepeatMasker/RepeatMasker-4.1.1.tar.gz | tar xz \
-    && perl /app/RepeatMasker/configure \
+    && cd /app/RepeatMasker \
+    && perl configure \
         -hmmer_dir=/usr/bin \
         -trf_prgm=/usr/bin/trf \
         -rmblast_dir=/app/rmblast-2.14.1/bin \
