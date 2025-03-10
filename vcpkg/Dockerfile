@@ -12,12 +12,13 @@ RUN true \
     && yum -y groupinstall 'Development Tools' \
     && yum -y install file vim \
     && yum -y install curl zip unzip tar \
-    && yum -y install autoconf automake autoconf-archive libtool-ltdl-devel
+    && yum -y install autoconf automake autoconf-archive libtool-ltdl-devel \
+    && yum clean all
 
 RUN true \
     && mkdir -p /app \
-    && curl -L https://github.com/microsoft/vcpkg/archive/refs/tags/2025.02.14.tar.gz |
-        tar xvz \
+    && curl -L https://github.com/microsoft/vcpkg/archive/refs/tags/2025.02.14.tar.gz \
+        | tar xvz \
     && mv vcpkg-* /app/vcpkg \
     && cd /app/vcpkg \
     && ./bootstrap-vcpkg.sh -disableMetrics -musl
