@@ -3,8 +3,8 @@ name: Docker base
 on:
   push:
     paths:
-      - .github/workflows/base.yml
-      - base/Dockerfile
+      - .github/workflows/vcpkg.yml
+      - vcpkg/Dockerfile
   release:
     types:
       - created
@@ -21,7 +21,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: wangq/base
+          images: wangq/vcpkg
 
       - name: Set up Docker Buildx
         id: buildx
@@ -37,8 +37,8 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v6
         with:
-          context: base/.
-          file: base/Dockerfile
+          context: vcpkg/.
+          file: vcpkg/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
