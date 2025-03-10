@@ -1,6 +1,15 @@
 FROM centos:7
+ARG minorver=7.9.2009
+
+sudo sed -e "s|^mirrorlist=|#mirrorlist=|g" \
+         -e "s|^#baseurl=http://mirror.centos.org/centos/\$releasever|baseurl=https://mirrors.cernet.edu.cn/centos-vault/$minorver|g" \
+         -i.bak \
+         /etc/yum.repos.d/CentOS-*.repo
 
 RUN true \
+    && sed -i.bak -e "s|^mirrorlist=|#mirrorlist=|g" \
+        -e "s|^#baseurl=http://mirror.centos.org/centos/\$releasever|baseurl=https://vault.centos.org/$minorver|g" \
+        /etc/yum.repos.d/CentOS-*.repo \
     && yum -y --setopt=tsflags=nodocs update \
     && yum -y groupinstall 'Development Tools' \
     && yum -y install file vim \
