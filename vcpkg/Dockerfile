@@ -18,7 +18,7 @@ RUN true \
 RUN true \
     && mkdir -p /app \
     && curl -L https://github.com/microsoft/vcpkg/archive/refs/tags/2025.02.14.tar.gz \
-        | tar xvz \
+        | tar xz \
     && mv vcpkg-* /app/vcpkg \
     && cd /app/vcpkg \
     && ./bootstrap-vcpkg.sh -disableMetrics -musl
