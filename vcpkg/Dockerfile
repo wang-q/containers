@@ -8,7 +8,7 @@ RUN true \
         unzip \
         tar \
         cmake \
-        ninja \
+        ninja-build \
         meson \
         autoconf \
         automake \
