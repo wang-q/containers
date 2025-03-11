@@ -22,8 +22,9 @@ RUN true \
     && curl -LO https://raw.githubusercontent.com/wang-q/dotfiles/refs/heads/master/python/build.sh \
     && bash build.sh \
     && ln -sf $HOME/share/Python/bin/python3 /usr/bin/python3 \
+    && ln -sf $HOME/share/Python/bin/python3 /usr/local/bin/python3 \
     && ln -sf $HOME/share/Python/bin/pip3 /usr/bin/pip3 \
-    && ln -sf $HOME/share/Python/bin/python3-config /usr/bin/python3-config \
+    && ln -sf $HOME/share/Python/bin/pip3 /usr/local/bin/pip3 \
     && python3 -V
 
 
