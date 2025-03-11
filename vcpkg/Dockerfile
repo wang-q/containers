@@ -23,7 +23,7 @@ RUN true \
     && bash build.sh \
     && ln -sf $HOME/share/Python/bin/python3 /usr/bin/python3 \
     && ln -sf $HOME/share/Python/bin/pip3 /usr/bin/pip3 \
-    && pip3 install meson \
+    && ln -sf $HOME/share/Python/bin/python3-config /usr/bin/python3-config \
     && python3 -V
 
 ENV VCPKG_FORCE_SYSTEM_BINARIES=1
