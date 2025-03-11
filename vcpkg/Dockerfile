@@ -1,36 +1,35 @@
-FROM wangq/base:master
-LABEL maintainer="Qiang Wang <wang-q@outlook.com>"
+FROM alpine:3.21
 
 RUN true \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apk update \
+    && apk upgrade \
+    && apk add \
+        build-base \
+        openssh \
         zip \
         unzip \
-        tar \
-        pkg-config \
+        linux-headers \
         cmake \
-        ninja-build \
-        meson \
-        autoconf \
-        automake \
-        libtool \
-        libltdl-dev \
-        bison \
+        git \
+        binutils \
+        perl \
+        curl \
         flex \
-        tree \
-    && apt-get autoremove --purge -y \
-    && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p app
+        bison \
+        ninja \
+        pkgconf \
+        bash \
+        openssl-dev \
+        tree
 
-ENV VCPKG_ROOT=/app/vcpkg
+ENV VCPKG_FORCE_SYSTEM_BINARIES 1
+ENV VCPKG_ROOT /opt/vcpkg
 ENV PATH=$VCPKG_ROOT:$PATH
 
 RUN true \
     && curl -L https://github.com/microsoft/vcpkg/archive/refs/tags/2025.02.14.tar.gz \
         | tar xz \
-    && mv vcpkg-* /app/vcpkg \
-    && cd /app/vcpkg \
+    && mv vcpkg-* /opt/vcpkg \
+    && cd /opt/vcpkg \
     && ./bootstrap-vcpkg.sh -disableMetrics -musl \
-    && tree /app
-
-WORKDIR /app
+    && tree /opt/vcpkg
