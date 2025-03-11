@@ -14,7 +14,8 @@ RUN true \
     && yum -y install curl zip unzip tar \
     && yum -y install autoconf automake autoconf-archive libtool-ltdl-devel \
     && yum clean all \
-    && rm -rf /var/cache/yum/*
+    && rm -rf /var/cache/yum/* \
+    && rm -rf var/lib/yum/yumdb/*
 
 RUN true \
     && mkdir -p /app \
