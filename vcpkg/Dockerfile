@@ -1,8 +1,8 @@
 FROM centos:7
 
 ARG minorver=7.9.2009
-ARG VCPKG_ROOT=/app/vcpkg
-ARG PATH=$VCPKG_ROOT:$PATH
+ENV VCPKG_ROOT=/app/vcpkg
+ENV PATH=$VCPKG_ROOT:$PATH
 
 RUN true \
     && sed -i.bak -e "s|^mirrorlist=|#mirrorlist=|g" \
@@ -13,7 +13,8 @@ RUN true \
     && yum -y install file vim \
     && yum -y install curl zip unzip tar \
     && yum -y install autoconf automake autoconf-archive libtool-ltdl-devel \
-    && yum clean all
+    && yum clean all \
+    && rm -rf /var/cache/yum/*
 
 RUN true \
     && mkdir -p /app \
