@@ -13,7 +13,7 @@ RUN true \
     && yum -y install file vim \
     && yum -y install curl zip unzip tar \
     && yum -y install autoconf automake autoconf-archive libtool-ltdl-devel \
-    && yum -y install openssl-devel bzip2-devel libffi-devel libsqlite3x-devel \
+    && yum -y install openssl-devel bzip2-devel libffi-devel sqlite-devel \
     && rpm -U http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm \
     && yum -y install git \
     && yum clean all \
