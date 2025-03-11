@@ -34,12 +34,10 @@ RUN true \
     && ./bootstrap-vcpkg.sh -disableMetrics \
     && tree -L 1 /opt/vcpkg
 
-RUN cat << 'EOF' > /opt/vcpkg/triplets/community/x64-linux-static.cmake
-set(VCPKG_TARGET_ARCHITECTURE x64)
-set(VCPKG_CRT_LINKAGE static)
-set(VCPKG_LIBRARY_LINKAGE static)
-
-set(VCPKG_CMAKE_SYSTEM_NAME Linux)
-set(VCPKG_BUILD_TYPE release)
-
-EOF
+RUN true \
+    && echo 'set(VCPKG_TARGET_ARCHITECTURE x64)' > /opt/vcpkg/triplets/community/x64-linux-static.cmake \
+    && echo 'set(VCPKG_CRT_LINKAGE static)' >> /opt/vcpkg/triplets/community/x64-linux-static.cmake \
+    && echo 'set(VCPKG_LIBRARY_LINKAGE static)' >> /opt/vcpkg/triplets/community/x64-linux-static.cmake \
+    && echo '' >> /opt/vcpkg/triplets/community/x64-linux-static.cmake \
+    && echo 'set(VCPKG_CMAKE_SYSTEM_NAME Linux)' >> /opt/vcpkg/triplets/community/x64-linux-static.cmake \
+    && echo 'set(VCPKG_BUILD_TYPE release)' >> /opt/vcpkg/triplets/community/x64-linux-static.cmake
