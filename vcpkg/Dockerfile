@@ -13,10 +13,12 @@ RUN true \
         git \
         binutils \
         perl \
+        python3 \
         curl \
         flex \
         bison \
         ninja \
+        meson \
         pkgconf \
         bash \
         openssl-dev \
