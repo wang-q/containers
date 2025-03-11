@@ -13,16 +13,19 @@ RUN true \
     && yum -y install file vim \
     && yum -y install curl zip unzip tar \
     && yum -y install autoconf automake autoconf-archive libtool-ltdl-devel \
+    && yum -y install openssl-devel bzip2-devel libffi-devel libsqlite3x-devel \
     && rpm -U http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm \
     && yum -y install git \
-    && yum install -y openssl-devel bzip2-devel libffi-devel libsqlite3x-devel \
     && yum clean all \
     && rm -rf /var/cache/yum/* \
     && rm -rf var/lib/yum/yumdb/*
 
 RUN true \
     && curl -LO https://raw.githubusercontent.com/wang-q/dotfiles/refs/heads/master/python/build.sh \
-    && bash build.sh
+    && bash build.sh \
+    && ln -sf $HOME/share/Python/bin/python3 /usr/bin/python3 \
+    && ln -sf $HOME/share/Python/bin/pip3 /usr/bin/pip3 \
+    && python3 -V
 
 RUN true \
     && mkdir -p /app \
