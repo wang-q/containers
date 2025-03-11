@@ -20,7 +20,10 @@ RUN true \
         pkgconf \
         bash \
         openssl-dev \
-        tree
+        tree \
+        musl \
+        musl-dev \
+        musl-utils
 
 ENV VCPKG_FORCE_SYSTEM_BINARIES 1
 ENV VCPKG_ROOT /opt/vcpkg
