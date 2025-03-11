@@ -50,3 +50,6 @@ RUN true \
     && ./bootstrap-vcpkg.sh -disableMetrics \
     && eza -T -L 1 /opt/vcpkg \
     && eza -T -L 1 /opt/cbp/bin
+
+RUN true \
+    && vcpkg install vcpkg-tool-meson
