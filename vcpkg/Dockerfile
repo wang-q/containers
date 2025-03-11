@@ -1,34 +1,37 @@
-FROM alpine:3.21
+FROM centos:7
+
+ARG minorver=7.9.2009
 
 RUN true \
-    && apk update \
-    && apk upgrade \
-    && apk add --no-cache \
-        build-base \
-        openssh \
-        zip \
-        unzip \
-        linux-headers \
-        cmake \
-        git \
-        binutils \
-        perl \
-        python3 \
-        curl \
-        flex \
-        bison \
-        ninja-is-really-ninja \
-        meson \
-        pkgconf \
-        bash \
-        openssl-dev \
-        tree
+    && sed -i.bak -e "s|^mirrorlist=|#mirrorlist=|g" \
+        -e "s|^#baseurl=http://mirror.centos.org/centos/\$releasever|baseurl=https://vault.centos.org/$minorver|g" \
+        /etc/yum.repos.d/CentOS-*.repo \
+    && yum -y --setopt=tsflags=nodocs update \
+    && yum -y groupinstall 'Development Tools' \
+    && yum -y install file vim \
+    && yum -y install curl zip unzip tar \
+    && yum -y install autoconf automake autoconf-archive libtool-ltdl-devel \
+    && yum -y install openssl-devel bzip2-devel libffi-devel sqlite-devel \
+    && rpm -U http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm \
+    && yum -y install git \
+    && yum clean all \
+    && rm -rf /var/cache/yum/* \
+    && rm -rf var/lib/yum/yumdb/*
+
+RUN true \
+    && curl -LO https://raw.githubusercontent.com/wang-q/dotfiles/refs/heads/master/python/build.sh \
+    && bash build.sh \
+    && ln -sf $HOME/share/Python/bin/python3 /usr/bin/python3 \
+    && ln -sf $HOME/share/Python/bin/pip3 /usr/bin/pip3 \
+    && pip3 install meson \
+    && python3 -V
 
 ENV VCPKG_FORCE_SYSTEM_BINARIES=1
 ENV VCPKG_ROOT=/opt/vcpkg
-ENV PATH=$VCPKG_ROOT:$PATH
+ENV PATH=$VCPKG_ROOT:$HOME/.cbp/bin:$PATH
 
 RUN true \
+    && mkdir -p /opt \
     && curl -L https://github.com/microsoft/vcpkg/archive/refs/tags/2025.02.14.tar.gz \
         | tar xz \
     && mv vcpkg-* /opt/vcpkg \
@@ -37,9 +40,7 @@ RUN true \
     && tree -L 1 /opt/vcpkg
 
 RUN true \
-    && echo 'set(VCPKG_TARGET_ARCHITECTURE x64)' > /opt/vcpkg/triplets/community/x64-linux-musl.cmake \
-    && echo 'set(VCPKG_CRT_LINKAGE dynamic)' >> /opt/vcpkg/triplets/community/x64-linux-musl.cmake \
-    && echo 'set(VCPKG_LIBRARY_LINKAGE static)' >> /opt/vcpkg/triplets/community/x64-linux-musl.cmake \
-    && echo '' >> /opt/vcpkg/triplets/community/x64-linux-musl.cmake \
-    && echo 'set(VCPKG_CMAKE_SYSTEM_NAME Linux)' >> /opt/vcpkg/triplets/community/x64-linux-musl.cmake \
-    && echo 'set(VCPKG_BUILD_TYPE release)' >> /opt/vcpkg/triplets/community/x64-linux-musl.cmake
+    && curl -LO https://github.com/wang-q/cbp/releases/latest/download/cbp.linux \
+    && chmod +x cbp.linux \
+    && ./cbp.linux init --dev \
+    && cbp install cmake ninja jq
