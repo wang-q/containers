@@ -32,4 +32,4 @@ RUN true \
     && mv vcpkg-* /opt/vcpkg \
     && cd /opt/vcpkg \
     && ./bootstrap-vcpkg.sh -disableMetrics \
-    && tree -L 2 /opt/vcpkg
+    && tree -L 1 /opt/vcpkg
