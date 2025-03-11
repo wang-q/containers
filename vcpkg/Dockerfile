@@ -31,16 +31,17 @@ ENV VCPKG_ROOT=/opt/vcpkg
 ENV PATH=$VCPKG_ROOT:$HOME/.cbp/bin:$PATH
 
 RUN true \
+    && curl -LO https://github.com/wang-q/cbp/releases/latest/download/cbp.linux \
+    && chmod +x cbp.linux \
+    && ./cbp.linux init --dev \
+    && cbp install cmake ninja jq eza
+
+RUN true \
     && mkdir -p /opt \
     && curl -L https://github.com/microsoft/vcpkg/archive/refs/tags/2025.02.14.tar.gz \
         | tar xz \
     && mv vcpkg-* /opt/vcpkg \
     && cd /opt/vcpkg \
     && ./bootstrap-vcpkg.sh -disableMetrics \
-    && tree -L 1 /opt/vcpkg
+    && eza -T -L 1 /opt/vcpkg
 
-RUN true \
-    && curl -LO https://github.com/wang-q/cbp/releases/latest/download/cbp.linux \
-    && chmod +x cbp.linux \
-    && ./cbp.linux init --dev \
-    && cbp install cmake ninja jq
