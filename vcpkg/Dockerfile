@@ -7,6 +7,7 @@ RUN true \
         zip \
         unzip \
         tar \
+        pkg-config \
         cmake \
         ninja-build \
         meson \
