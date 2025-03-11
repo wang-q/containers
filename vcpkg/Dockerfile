@@ -14,7 +14,8 @@ RUN true \
     && yum -y install curl zip unzip tar \
     && yum -y install autoconf automake autoconf-archive libtool-ltdl-devel \
     && rpm -U http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm \
-    && yum install -y git \
+    && yum -y install git \
+    && yum install -y python3 \
     && yum clean all \
     && rm -rf /var/cache/yum/* \
     && rm -rf var/lib/yum/yumdb/*
