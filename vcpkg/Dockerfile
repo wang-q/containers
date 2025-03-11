@@ -1,31 +1,21 @@
-FROM centos:7
+FROM wangq/base:master
+LABEL maintainer="Qiang Wang <wang-q@outlook.com>"
 
-ARG minorver=7.9.2009
+RUN true \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        tree \
+    && mkdir -p app
+
 ENV VCPKG_ROOT=/app/vcpkg
 ENV PATH=$VCPKG_ROOT:$PATH
 
 RUN true \
-    && sed -i.bak -e "s|^mirrorlist=|#mirrorlist=|g" \
-        -e "s|^#baseurl=http://mirror.centos.org/centos/\$releasever|baseurl=https://vault.centos.org/$minorver|g" \
-        /etc/yum.repos.d/CentOS-*.repo \
-    && yum -y --setopt=tsflags=nodocs update \
-    && yum -y groupinstall 'Development Tools' \
-    && yum -y install file vim \
-    && yum -y install curl zip unzip tar \
-    && yum -y install autoconf automake autoconf-archive libtool-ltdl-devel \
-    && rpm -U http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm \
-    && yum -y install git \
-    && yum install -y python3 \
-    && yum clean all \
-    && rm -rf /var/cache/yum/* \
-    && rm -rf var/lib/yum/yumdb/*
-
-RUN true \
-    && mkdir -p /app \
     && curl -L https://github.com/microsoft/vcpkg/archive/refs/tags/2025.02.14.tar.gz \
         | tar xz \
     && mv vcpkg-* /app/vcpkg \
     && cd /app/vcpkg \
-    && ./bootstrap-vcpkg.sh -disableMetrics -musl
+    && ./bootstrap-vcpkg.sh -disableMetrics -musl \
+    && tree /app
 
 WORKDIR /app
