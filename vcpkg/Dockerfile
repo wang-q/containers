@@ -15,6 +15,8 @@ RUN true \
         automake \
         libtool \
         libltdl-dev \
+        bison \
+        flex \
         tree \
     && apt-get autoremove --purge -y \
     && rm -rf /var/lib/apt/lists/* \
