@@ -20,13 +20,10 @@ RUN true \
         pkgconf \
         bash \
         openssl-dev \
-        tree \
-        musl \
-        musl-dev \
-        musl-utils
+        tree
 
-ENV VCPKG_FORCE_SYSTEM_BINARIES 1
-ENV VCPKG_ROOT /opt/vcpkg
+ENV VCPKG_FORCE_SYSTEM_BINARIES=1
+ENV VCPKG_ROOT=/opt/vcpkg
 ENV PATH=$VCPKG_ROOT:$PATH
 
 RUN true \
@@ -36,3 +33,13 @@ RUN true \
     && cd /opt/vcpkg \
     && ./bootstrap-vcpkg.sh -disableMetrics \
     && tree -L 1 /opt/vcpkg
+
+RUN cat << 'EOF' > /opt/vcpkg/triplets/community/x64-linux-static.cmake
+set(VCPKG_TARGET_ARCHITECTURE x64)
+set(VCPKG_CRT_LINKAGE static)
+set(VCPKG_LIBRARY_LINKAGE static)
+
+set(VCPKG_CMAKE_SYSTEM_NAME Linux)
+set(VCPKG_BUILD_TYPE release)
+
+EOF
