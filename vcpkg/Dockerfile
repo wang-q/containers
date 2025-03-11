@@ -17,7 +17,7 @@ RUN true \
         curl \
         flex \
         bison \
-        ninja \
+        ninja-is-really-ninja \
         meson \
         pkgconf \
         bash \
