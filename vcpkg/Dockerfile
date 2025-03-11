@@ -26,15 +26,19 @@ RUN true \
     && ln -sf $HOME/share/Python/bin/python3-config /usr/bin/python3-config \
     && python3 -V
 
-ENV VCPKG_FORCE_SYSTEM_BINARIES=1
-ENV VCPKG_ROOT=/opt/vcpkg
-ENV PATH=$VCPKG_ROOT:$HOME/.cbp/bin:$PATH
+
+ENV PATH=/root/.cbp/bin:$PATH
 
 RUN true \
     && curl -LO https://github.com/wang-q/cbp/releases/latest/download/cbp.linux \
     && chmod +x cbp.linux \
     && ./cbp.linux init --dev \
-    && cbp install cmake ninja jq eza
+    && rm ./cbp.linux \
+    && /root/.cbp/bin/cbp install cmake ninja jq eza
+
+ENV VCPKG_FORCE_SYSTEM_BINARIES=1
+ENV VCPKG_ROOT=/opt/vcpkg
+ENV PATH=$VCPKG_ROOT:$PATH
 
 RUN true \
     && mkdir -p /opt \
