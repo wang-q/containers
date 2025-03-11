@@ -27,7 +27,7 @@ RUN true \
     && python3 -V
 
 
-ENV PATH=/root/.cbp/bin:$PATH
+ENV PATH=/opt/cbp/bin:$PATH
 
 RUN true \
     && curl -LO https://github.com/wang-q/cbp/releases/latest/download/cbp.linux \
@@ -47,5 +47,5 @@ RUN true \
     && mv vcpkg-* /opt/vcpkg \
     && cd /opt/vcpkg \
     && ./bootstrap-vcpkg.sh -disableMetrics \
-    && eza -T -L 1 /opt/vcpkg
-
+    && eza -T -L 1 /opt/vcpkg \
+    && eza -T -L 1 /opt/cbp/bin
