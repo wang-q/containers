@@ -3,7 +3,7 @@ FROM alpine:3.21
 RUN true \
     && apk update \
     && apk upgrade \
-    && apk add \
+    && apk add --no-cache \
         build-base \
         openssh \
         zip \
@@ -31,5 +31,5 @@ RUN true \
         | tar xz \
     && mv vcpkg-* /opt/vcpkg \
     && cd /opt/vcpkg \
-    && ./bootstrap-vcpkg.sh -disableMetrics -musl \
-    && tree /opt/vcpkg
+    && ./bootstrap-vcpkg.sh -disableMetrics \
+    && tree -L 2 /opt/vcpkg
