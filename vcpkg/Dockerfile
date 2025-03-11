@@ -35,9 +35,9 @@ RUN true \
     && tree -L 1 /opt/vcpkg
 
 RUN true \
-    && echo 'set(VCPKG_TARGET_ARCHITECTURE x64)' > /opt/vcpkg/triplets/community/x64-linux-static.cmake \
-    && echo 'set(VCPKG_CRT_LINKAGE static)' >> /opt/vcpkg/triplets/community/x64-linux-static.cmake \
-    && echo 'set(VCPKG_LIBRARY_LINKAGE static)' >> /opt/vcpkg/triplets/community/x64-linux-static.cmake \
-    && echo '' >> /opt/vcpkg/triplets/community/x64-linux-static.cmake \
-    && echo 'set(VCPKG_CMAKE_SYSTEM_NAME Linux)' >> /opt/vcpkg/triplets/community/x64-linux-static.cmake \
-    && echo 'set(VCPKG_BUILD_TYPE release)' >> /opt/vcpkg/triplets/community/x64-linux-static.cmake
+    && echo 'set(VCPKG_TARGET_ARCHITECTURE x64)' > /opt/vcpkg/triplets/community/x64-linux-musl.cmake \
+    && echo 'set(VCPKG_CRT_LINKAGE dynamic)' >> /opt/vcpkg/triplets/community/x64-linux-musl.cmake \
+    && echo 'set(VCPKG_LIBRARY_LINKAGE static)' >> /opt/vcpkg/triplets/community/x64-linux-musl.cmake \
+    && echo '' >> /opt/vcpkg/triplets/community/x64-linux-musl.cmake \
+    && echo 'set(VCPKG_CMAKE_SYSTEM_NAME Linux)' >> /opt/vcpkg/triplets/community/x64-linux-musl.cmake \
+    && echo 'set(VCPKG_BUILD_TYPE release)' >> /opt/vcpkg/triplets/community/x64-linux-musl.cmake
