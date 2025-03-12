@@ -41,8 +41,11 @@ RUN true \
         | tar xz \
     && mv vcpkg-* /opt/vcpkg \
     && cd /opt/vcpkg \
-    && ./bootstrap-vcpkg.sh -disableMetrics \
-    && tree -L 1 /opt/vcpkg
+    && ./bootstrap-vcpkg.sh -disableMetrics
+
+RUN true \
+    && eza -T -L 1 /opt/vcpkg \
+    && eza -T -L 1 /opt/cbp/bin
 
 RUN true \
     && echo 'set(VCPKG_TARGET_ARCHITECTURE x64)' > /opt/vcpkg/triplets/community/x64-linux-musl.cmake \
