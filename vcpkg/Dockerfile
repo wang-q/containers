@@ -36,8 +36,7 @@ RUN true \
     && ./bootstrap-vcpkg.sh -disableMetrics
 
 RUN true \
-    && tree -L 1 /opt/vcpkg \
-    && tree -L 1 /opt/cbp/bin
+    && tree -L 1 /opt/vcpkg
 
 RUN true \
     && echo 'set(VCPKG_TARGET_ARCHITECTURE x64)' > /opt/vcpkg/triplets/community/x64-linux-musl.cmake \
