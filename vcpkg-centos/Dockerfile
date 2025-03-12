@@ -35,11 +35,15 @@ RUN true \
     && make install \
     && cd .. \
     && rm -rf Python-* \
+    && python3 -V
+
+RUN true \
+    && curl -L https://cpanmin.us | perl - App::cpanminus \
+    && cpanm IPC::Cmd \
     && pip3 install \
         --trusted-host mirror.nju.edu.cn \
         -i http://mirror.nju.edu.cn/pypi/web/simple/ \
-        --upgrade pip setuptools wheel pysocks meson \
-    && python3 -V
+        --upgrade pip setuptools wheel pysocks meson
 
 ENV PATH=/opt/cbp/bin:$PATH
 
