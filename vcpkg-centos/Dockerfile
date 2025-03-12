@@ -11,7 +11,7 @@ RUN true \
     && yum -y install file vim \
     && yum -y install curl zip unzip tar \
     && yum -y install zlib-devel bzip2-devel xz-devel \
-    && yum -y install perl-ExtUtils-MakeMaker \
+    && yum -y install perl-ExtUtils-MakeMaker perl-Test-Simple \
     && yum -y install autoconf automake autoconf-archive libtool-ltdl-devel \
     && yum -y install openssl-devel libffi-devel libuuid-devel sqlite-devel \
     && rpm -U http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm \
@@ -22,7 +22,8 @@ RUN true \
 
 RUN true \
     && curl -L https://cpanmin.us | perl - App::cpanminus \
-    && cpanm IPC::Cmd
+    && cpanm IPC::Cmd \
+    && rm -fr root/.cpanm
 
 ENV PATH=/opt/Python/bin:$PATH
 
