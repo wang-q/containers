@@ -52,4 +52,4 @@ RUN true \
     && eza -T -L 1 /opt/cbp/bin
 
 RUN true \
-    && vcpkg install vcpkg-tool-meson
+    && vcpkg install --debug vcpkg-tool-meson:x64-linux
