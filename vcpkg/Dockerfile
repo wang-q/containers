@@ -17,20 +17,12 @@ RUN true \
         curl \
         flex \
         bison \
+        ninja-build \
         meson \
         pkgconf \
         bash \
         openssl-dev \
         tree
-
-ENV PATH=/opt/cbp/bin:$PATH
-
-RUN true \
-    && curl -LO https://github.com/wang-q/cbp/releases/latest/download/cbp.linux \
-    && chmod +x cbp.linux \
-    && ./cbp.linux init --dev /opt/cbp \
-    && rm ./cbp.linux \
-    && /root/.cbp/bin/cbp install ninja jq eza
 
 ENV VCPKG_FORCE_SYSTEM_BINARIES=1
 ENV VCPKG_ROOT=/opt/vcpkg
@@ -44,8 +36,8 @@ RUN true \
     && ./bootstrap-vcpkg.sh -disableMetrics
 
 RUN true \
-    && eza -T -L 1 /opt/vcpkg \
-    && eza -T -L 1 /opt/cbp/bin
+    && tree -L 1 /opt/vcpkg \
+    && tree -L 1 /opt/cbp/bin
 
 RUN true \
     && echo 'set(VCPKG_TARGET_ARCHITECTURE x64)' > /opt/vcpkg/triplets/community/x64-linux-musl.cmake \
