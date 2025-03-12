@@ -18,15 +18,28 @@ RUN true \
     && rm -rf /var/cache/yum/* \
     && rm -rf var/lib/yum/yumdb/*
 
-RUN true \
-    && curl -LO https://raw.githubusercontent.com/wang-q/dotfiles/refs/heads/master/python/build.sh \
-    && bash build.sh \
-    && ln -sf $HOME/share/Python/bin/python3 /usr/bin/python3 \
-    && ln -sf $HOME/share/Python/bin/python3 /usr/local/bin/python3 \
-    && ln -sf $HOME/share/Python/bin/pip3 /usr/bin/pip3 \
-    && ln -sf $HOME/share/Python/bin/pip3 /usr/local/bin/pip3 \
-    && python3 -V
+ENV PATH=/opt/Python/bin:$PATH
 
+RUN true \
+    && curl -L https://mirrors.huaweicloud.com/python/3.9.21/Python-3.9.21.tgz \
+        | tar xz \
+    && cd Python-* \
+    && ./configure \
+        --prefix=/opt/Python \
+        --enable-optimizations \
+        --enable-ipv6 \
+        --with-openssl \
+        --enable-loadable-sqlite-extensions \
+        --with-lto \
+    && make -j 2 \
+    && make install \
+    && cd .. \
+    && rm -rf Python-* \
+    && pip install \
+        --trusted-host mirror.nju.edu.cn \
+        -i http://mirror.nju.edu.cn/pypi/web/simple/ \
+        --upgrade pip setuptools wheel pysocks meson \
+    && python3 -V
 
 ENV PATH=/opt/cbp/bin:$PATH
 
@@ -47,9 +60,9 @@ RUN true \
         | tar xz \
     && mv vcpkg-* /opt/vcpkg \
     && cd /opt/vcpkg \
-    && ./bootstrap-vcpkg.sh -disableMetrics \
-    && eza -T -L 1 /opt/vcpkg \
-    && eza -T -L 1 /opt/cbp/bin
+    && ./bootstrap-vcpkg.sh -disableMetrics
 
 RUN true \
-    && vcpkg install --debug vcpkg-tool-meson:x64-linux
+    && eza -T -L 1 /opt/Python\bin \
+    && eza -T -L 1 /opt/cbp/bin \
+    && eza -T -L 1 /opt/vcpkg
