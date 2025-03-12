@@ -15,6 +15,7 @@ RUN true \
         perl \
         python3 \
         curl \
+        re2c \
         flex \
         bison \
         meson \
