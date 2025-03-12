@@ -35,7 +35,7 @@ RUN true \
     && make install \
     && cd .. \
     && rm -rf Python-* \
-    && pip install \
+    && pip3 install \
         --trusted-host mirror.nju.edu.cn \
         -i http://mirror.nju.edu.cn/pypi/web/simple/ \
         --upgrade pip setuptools wheel pysocks meson \
