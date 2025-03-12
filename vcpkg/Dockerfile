@@ -22,6 +22,7 @@ RUN true \
         pkgconf \
         bash \
         openssl-dev \
+        gettext-dev \
         tree
 
 RUN true \
