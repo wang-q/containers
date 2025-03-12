@@ -17,12 +17,23 @@ RUN true \
         curl \
         flex \
         bison \
-        ninja-build \
         meson \
         pkgconf \
         bash \
         openssl-dev \
         tree
+
+RUN true \
+    && curl -L https://github.com/ninja-build/ninja/archive/refs/tags/v1.12.1.tar.gz \
+        | tar xz \
+    && mv ninja-* ninja \
+    && cd ninja \
+    && cmake -S. -B build \
+    && cmake --build build \
+    && cmake --install build \
+    && cd .. \
+    && rm -rf ninja \
+    && ninja --version
 
 ENV VCPKG_FORCE_SYSTEM_BINARIES=1
 ENV VCPKG_ROOT=/opt/vcpkg
