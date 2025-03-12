@@ -20,6 +20,10 @@ RUN true \
     && rm -rf /var/cache/yum/* \
     && rm -rf var/lib/yum/yumdb/*
 
+RUN true \
+    && curl -L https://cpanmin.us | perl - App::cpanminus \
+    && cpanm IPC::Cmd
+
 ENV PATH=/opt/Python/bin:$PATH
 
 RUN true \
@@ -39,8 +43,6 @@ RUN true \
     && python3 -V
 
 RUN true \
-    && curl -L https://cpanmin.us | perl - App::cpanminus \
-    && cpanm IPC::Cmd \
     && pip3 install \
         --trusted-host mirror.nju.edu.cn \
         -i http://mirror.nju.edu.cn/pypi/web/simple/ \
