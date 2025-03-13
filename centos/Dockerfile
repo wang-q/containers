@@ -16,8 +16,8 @@ RUN true \
     && yum -y install libxml2-devel expat-devel pcre-devel pcre2-devel \
     && yum -y install openssl-devel libffi-devel libuuid-devel sqlite-devel \
     && yum -y install blas-devel lapack-devel \
-    && yum -y install libpng-devel libjpeg-turbo-devel libtiff-devel freetype-devel fontconfig-devel \
-    && yum -y install cairo-devel pango-devel gd-devel \
+    && yum -y install libpng-devel libjpeg-turbo-devel libtiff-devel \
+    && yum -y install freetype-devel fontconfig-devel \
     && yum -y install perl-ExtUtils-MakeMaker perl-Test-Simple perl-IPC-Cmd perl-Digest-MD5 \
     && rpm -U http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm \
     && yum -y install git \
