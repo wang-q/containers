@@ -32,7 +32,7 @@ RUN true \
     && chmod +x cbp.linux \
     && ./cbp.linux init --dev /opt/cbp \
     && rm ./cbp.linux \
-    && /root/.cbp/bin/cbp install cmake ninja jq eza
+    && /opt/cbp/bin/cbp install cmake ninja jq eza
 
 ENV VCPKG_FORCE_SYSTEM_BINARIES=1
 ENV VCPKG_ROOT=/opt/vcpkg
