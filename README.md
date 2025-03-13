@@ -87,25 +87,6 @@ vcpkg install --debug --recurse \
 
 ldd -v installed/x64-linux-musl/tools/fontconfig/fc-cache
 
-singularity run vcpkg-centos_master.sif \
-vcpkg install --debug --recurse --allow-unsupported \
-    --clean-buildtrees-after-build --clean-packages-after-build \
-    --x-buildtrees-root=./buildtrees \
-    --downloads-root=./downloads \
-    --x-install-root=./installed \
-    --x-packages-root=./packages \
-    graphviz:x64-linux-musl
-
-singularity run vcpkg-centos_master.sif ldd -v installed/x64-linux-musl/tools/bzip2/bzip2
-ldd -v installed/x64-linux-musl/tools/bzip2/bzip2
-
-vcpkg install --debug --recurse \
-    --x-buildtrees-root=./buildtrees \
-    --downloads-root=./downloads \
-    --x-install-root=./installed \
-    --x-packages-root=./packages \
-    vcpkg-tool-meson:x64-linux vcpkg-tool-meson:x64-linux-release
-
 ```
 
 
