@@ -1,29 +1,5 @@
-FROM centos:7
-
-ARG minorver=7.9.2009
-
-RUN true \
-    && sed -i.bak -e "s|^mirrorlist=|#mirrorlist=|g" \
-        -e "s|^#baseurl=http://mirror.centos.org/centos/\$releasever|baseurl=https://vault.centos.org/$minorver|g" \
-        /etc/yum.repos.d/CentOS-*.repo \
-    && yum -y --setopt=tsflags=nodocs update \
-    && yum -y groupinstall 'Development Tools' \
-    && yum -y install file vim \
-    && yum -y install curl zip unzip tar \
-    && yum -y install zlib-devel bzip2-devel xz-devel \
-    && yum -y install perl-ExtUtils-MakeMaker perl-Test-Simple \
-    && yum -y install autoconf automake autoconf-archive libtool-ltdl-devel \
-    && yum -y install openssl-devel libffi-devel libuuid-devel sqlite-devel \
-    && rpm -U http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm \
-    && yum -y install git \
-    && yum clean all \
-    && rm -rf /var/cache/yum/* \
-    && rm -rf var/lib/yum/yumdb/*
-
-RUN true \
-    && curl -L https://cpanmin.us | perl - App::cpanminus \
-    && cpanm IPC::Cmd \
-    && rm -fr root/.cpanm
+FROM wangq/centos:master
+LABEL maintainer="Qiang Wang <wang-q@outlook.com>"
 
 ENV PATH=/opt/Python/bin:$PATH
 
