@@ -14,7 +14,8 @@ RUN true \
     && yum -y install autoconf automake autoconf-archive libtool-ltdl-devel \
     && yum -y install ncurses-devel readline-devel \
     && yum -y install libxml2-devel expat-devel pcre-devel pcre2-devel \
-    && yum -y install openssl-devel libffi-devel libuuid-devel sqlite-devel \
+    && yum -y install openssl-devel libcurl-devel \
+    && yum -y install libffi-devel libuuid-devel sqlite-devel \
     && yum -y install blas-devel lapack-devel \
     && yum -y install libpng-devel libjpeg-turbo-devel libtiff-devel \
     && yum -y install freetype-devel fontconfig-devel \
