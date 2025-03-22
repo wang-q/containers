@@ -16,6 +16,7 @@ jobs:
         image:
           - { name: 'ubuntu', context: 'ubuntu' }
           - { name: 'centos', context: 'centos' }
+          - { name: 'alpine', context: 'alpine' }
 
     steps:
 

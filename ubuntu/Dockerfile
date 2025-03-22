@@ -1,4 +1,6 @@
 FROM ubuntu:22.04
+LABEL maintainer="Qiang Wang <wang-q@outlook.com>"
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Delete the default ubuntu user & group UID=1000 GID=1000 in Ubuntu 23.04+
