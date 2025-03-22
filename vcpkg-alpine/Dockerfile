@@ -4,6 +4,7 @@ LABEL maintainer="Qiang Wang <wang-q@outlook.com>"
 ENV PATH=/opt/cbp/bin:$PATH
 
 RUN true \
+    && mkdir -p /opt \
     && curl -LO https://github.com/wang-q/cbp/releases/latest/download/cbp.linux \
     && chmod +x cbp.linux \
     && ./cbp.linux init --dev /opt/cbp \
@@ -15,7 +16,6 @@ ENV VCPKG_ROOT=/opt/vcpkg
 ENV PATH=$VCPKG_ROOT:$PATH
 
 RUN true \
-    && mkdir -p /opt \
     && curl -L https://github.com/microsoft/vcpkg/archive/refs/tags/2025.02.14.tar.gz \
         | tar xz \
     && mv vcpkg-* /opt/vcpkg \
