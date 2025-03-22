@@ -50,6 +50,5 @@ RUN true \
     && ./bootstrap-vcpkg.sh -disableMetrics
 
 RUN true \
-    && eza -T -L 1 /opt/Python/bin \
     && eza -T -L 1 /opt/cbp/bin \
     && eza -T -L 1 /opt/vcpkg
