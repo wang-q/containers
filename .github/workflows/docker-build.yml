@@ -15,6 +15,7 @@ jobs:
       matrix:
         image:
           - { name: 'ubuntu', context: 'ubuntu' }
+          - { name: 'centos', context: 'centos' }
 
     steps:
 

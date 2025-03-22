@@ -1,4 +1,5 @@
 FROM centos:7
+LABEL maintainer="Qiang Wang <wang-q@outlook.com>"
 
 ARG minorver=7.9.2009
 
