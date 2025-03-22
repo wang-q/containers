@@ -98,14 +98,14 @@ mv repeatmasker_master.sif ~/bin/
 # RepeatMasker
 cat << EOF > ~/bin/RepeatMasker
 #!/usr/bin/env bash
-singularity run ~/bin/repeatmasker_master.sif /app/RepeatMasker/RepeatMasker $@
+singularity run ~/bin/repeatmasker_master.sif /opt/RepeatMasker/RepeatMasker $@
 EOF
 chmod +x ~/bin/RepeatMasker
 
 # rmOutToGFF3
 cat << EOF > ~/bin/rmOutToGFF3
 #!/usr/bin/env bash
-singularity run ~/bin/repeatmasker_master.sif /app/RepeatMasker/util/rmOutToGFF3.pl $@
+singularity run ~/bin/repeatmasker_master.sif /opt/RepeatMasker/util/rmOutToGFF3.pl $@
 EOF
 chmod +x ~/bin/rmOutToGFF3
 

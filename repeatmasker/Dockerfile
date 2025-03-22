@@ -22,6 +22,7 @@ WORKDIR /opt
 RUN true \
     && curl -L https://www.repeatmasker.org/rmblast/rmblast-2.14.1+-x64-linux-GLIBC_2.31.tar.gz \
         | tar xz \
+    && mv rmblast-* /opt/rmblast \
     && tree /opt
 
 # /app/RepeatMasker/RepeatMasker
@@ -33,6 +34,6 @@ RUN true \
     && perl configure \
         -hmmer_dir=/usr/bin \
         -trf_prgm=/usr/bin/trf \
-        -rmblast_dir=/opt/rmblast-2.14.1/bin \
+        -rmblast_dir=/opt/rmblast/bin \
         -libdir=/opt/RepeatMasker/Libraries \
         -default_search_engine=rmblast
