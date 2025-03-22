@@ -1,29 +1,29 @@
 FROM wangq/centos:master
 LABEL maintainer="Qiang Wang <wang-q@outlook.com>"
 
-ENV PATH=/opt/Python/bin:$PATH
+# ENV PATH=/opt/Python/bin:$PATH
 
-RUN true \
-    && curl -L https://mirrors.huaweicloud.com/python/3.9.21/Python-3.9.21.tgz \
-        | tar xz \
-    && cd Python-* \
-    && ./configure \
-        --prefix=/opt/Python \
-        --enable-optimizations \
-        --enable-ipv6 \
-        --enable-loadable-sqlite-extensions \
-        --with-lto \
-    && make -j 2 \
-    && make install \
-    && cd .. \
-    && rm -rf Python-* \
-    && python3 -V
+# RUN true \
+#     && curl -L https://mirrors.huaweicloud.com/python/3.9.21/Python-3.9.21.tgz \
+#         | tar xz \
+#     && cd Python-* \
+#     && ./configure \
+#         --prefix=/opt/Python \
+#         --enable-optimizations \
+#         --enable-ipv6 \
+#         --enable-loadable-sqlite-extensions \
+#         --with-lto \
+#     && make -j 2 \
+#     && make install \
+#     && cd .. \
+#     && rm -rf Python-* \
+#     && python3 -V
 
-RUN true \
-    && pip3 install \
-        --trusted-host mirror.nju.edu.cn \
-        -i http://mirror.nju.edu.cn/pypi/web/simple/ \
-        --upgrade pip setuptools wheel pysocks meson
+# RUN true \
+#     && pip3 install \
+#         --trusted-host mirror.nju.edu.cn \
+#         -i http://mirror.nju.edu.cn/pypi/web/simple/ \
+#         --upgrade pip setuptools wheel pysocks meson
 
 ENV PATH=/opt/cbp/bin:$PATH
 
@@ -33,7 +33,10 @@ RUN true \
     && chmod +x cbp.linux \
     && ./cbp.linux init --dev /opt/cbp \
     && rm ./cbp.linux \
-    && /opt/cbp/bin/cbp install cmake ninja jq eza
+    && /opt/cbp/bin/cbp install cmake ninja jq eza \
+    && /opt/cbp/bin/cbp install python3.11 uv \
+    && uv python list \
+    && uv pip install --system meson
 
 ENV VCPKG_FORCE_SYSTEM_BINARIES=1
 ENV VCPKG_ROOT=/opt/vcpkg
