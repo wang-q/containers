@@ -17,6 +17,9 @@ jobs:
           - { name: 'ubuntu', context: 'ubuntu' }
           - { name: 'centos', context: 'centos' }
           - { name: 'alpine', context: 'alpine' }
+          - { name: 'vcpkg-centos', context: 'vcpkg-centos' }
+          - { name: 'vcpkg-alpine', context: 'vcpkg-alpine' }
+          - { name: 'vcpkg-ubuntu', context: 'vcpkg-ubuntu' }
 
     steps:
 
