@@ -3,10 +3,9 @@
 <!-- TOC -->
 * [Several docker containers](#several-docker-containers)
   * [docker](#docker)
-    * [base: perl and python](#base-perl-and-python)
     * [repeatmasker](#repeatmasker)
   * [singularity](#singularity)
-    * [shims](#shims)
+    * [vcpkg](#vcpkg)
 <!-- TOC -->
 
 Containers were built with GitHub Actions and subsequently published to Docker Hub.
@@ -14,19 +13,6 @@ Containers were built with GitHub Actions and subsequently published to Docker H
 To run on HPC, use Singularity and create shims to run the containers
 
 ## docker
-
-### base: perl and python
-
-```shell
-# Build
-docker build -t wangq/base base/.
-
-# Run
-docker run --rm wangq/base:latest base help
-
-docker run --rm -it wangq/base:master
-
-```
 
 ### repeatmasker
 
