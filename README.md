@@ -46,9 +46,32 @@ docker run --rm -it wangq/repeatmasker:master
 ```shell
 singularity pull docker://wangq/repeatmasker:master
 
-singularity run repeatmasker_master.sif /app/RepeatMasker/RepeatMasker
+mv repeatmasker_master.sif ~/bin/repeatmasker.sif
 
-singularity run repeatmasker_master.sif /app/RepeatMasker/util/rmOutToGFF3.pl
+singularity run ~/bin/repeatmasker.sif /opt/RepeatMasker/RepeatMasker
+
+singularity run ~/bin/repeatmasker.sif /opt/RepeatMasker/util/rmOutToGFF3.pl
+
+# RepeatMasker
+cat << 'EOF' > ~/bin/RepeatMasker
+#!/usr/bin/env bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SIF_FILE="${SCRIPT_DIR}/repeatmasker.sif"
+singularity run "${SIF_FILE}" /opt/RepeatMasker/RepeatMasker "$@"
+EOF
+chmod +x ~/bin/RepeatMasker
+
+# rmOutToGFF3
+cat << 'EOF' > ~/bin/rmOutToGFF3
+#!/usr/bin/env bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SIF_FILE="${SCRIPT_DIR}/repeatmasker.sif"
+singularity run "${SIF_FILE}" /opt/RepeatMasker/util/rmOutToGFF3.pl "$@"
+EOF
+chmod +x ~/bin/rmOutToGFF3
+
+RepeatMasker
+rmOutToGFF3
 
 ```
 
@@ -86,30 +109,5 @@ vcpkg install --debug --recurse \
     # fontconfig[tools]:x64-linux-release
 
 ldd -v installed/x64-linux-musl/tools/fontconfig/fc-cache
-
-```
-
-
-### shims
-
-```shell
-mv repeatmasker_master.sif ~/bin/
-
-# RepeatMasker
-cat << EOF > ~/bin/RepeatMasker
-#!/usr/bin/env bash
-singularity run ~/bin/repeatmasker_master.sif /opt/RepeatMasker/RepeatMasker $@
-EOF
-chmod +x ~/bin/RepeatMasker
-
-# rmOutToGFF3
-cat << EOF > ~/bin/rmOutToGFF3
-#!/usr/bin/env bash
-singularity run ~/bin/repeatmasker_master.sif /opt/RepeatMasker/util/rmOutToGFF3.pl $@
-EOF
-chmod +x ~/bin/rmOutToGFF3
-
-RepeatMasker
-rmOutToGFF3
 
 ```
